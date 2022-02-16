@@ -2,6 +2,8 @@ const afazeresSalvos = JSON.parse(localStorage.getItem('afazeresSalvos'));
 const inicioAfazeres = JSON.parse(localStorage.getItem('inicioAfazeres'));
 const infoEstrelas = JSON.parse(localStorage.getItem('infoEstrelas'));
 
+let contador = 0;
+
 if (infoEstrelas) {
 	document.getElementById('quantidadeEstrelas').innerText = infoEstrelas.quantidade;
 }
@@ -72,7 +74,6 @@ form.addEventListener('submit', (e) => {
 btnResetar.addEventListener('click', (e) => {
 	localStorage.setItem('afazeresSalvos', null);
 	localStorage.setItem('inicioAfazeres', null);
-	localStorage.setItem('infoEstrelas', null);
 	window.location.href = 'index.html';
 });
 
@@ -100,6 +101,7 @@ function insereAfazeres() {
 			li.classList.add('afazer-listado');
 			icon.classList.add('bi'); // classe para bootstrap icons
 			if (afazerSalvo.feito && afazerSalvo.dataFeitura === hoje) {
+				contador++;
 				li.classList.add('feito');
 				icon.classList.add('bi-check2-circle');
 			} else {
@@ -119,7 +121,6 @@ insereAfazeres();
 let afazeresListados = [... document.getElementsByClassName('afazer-listado')];
 
 // adiciona os event listeners de clique nos afazeres, para que suas cores mudem
-let contador = 0;
 afazeresListados.forEach(afazer => {
 	afazer.addEventListener('click', function(){
 		if (afazer.classList.contains('feito')) {
